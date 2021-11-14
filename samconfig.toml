@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "github-new-repo-branch-protection"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-e651o7wvhxax"
+s3_prefix = "github-new-repo-branch-protection"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = ["NewRepoBranchProtectionLambda=004670408193.dkr.ecr.us-east-1.amazonaws.com/githubnewrepobranchprotection5692dcef/newrepobranchprotectionlambda43b7537brepo"]

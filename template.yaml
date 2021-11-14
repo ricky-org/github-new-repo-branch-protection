@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  python3.9
+
+  Sample SAM Template for github-new-repo-branch-protection
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  NewRepoBranchProtectionLambda:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          GITHUB_TOKEN: #provide your github token
+          GITHUB_ORG: #provide your github org
+          GITHUB_DEFAULT_BRANCH: #provide your github default branch
+      Events:
+        NewRepoBranchProtection:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /rule
+            Method: post
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: ./new_repo_branch_protection
+      DockerTag: python3.9-v1
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  NewRepoBranchProtectionApi:
+    Description: "API Gateway endpoint URL for Prod stage for NewRepoBranchProtection function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/rule/"
+  NewRepoBranchProtectionLambda:
+    Description: "NewRepoBranchProtection Lambda Function ARN"
+    Value: !GetAtt NewRepoBranchProtectionLambda.Arn
+  NewRepoBranchProtectionLambdaIamRole:
+    Description: "Implicit IAM Role created for NewRepoBranchProtection function"
+    Value: !GetAtt NewRepoBranchProtectionLambdaRole.Arn
