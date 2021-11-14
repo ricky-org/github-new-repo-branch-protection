@@ -22,6 +22,7 @@ Resources:
           GITHUB_TOKEN: #provide your github token
           GITHUB_ORG: #provide your github org
           GITHUB_DEFAULT_BRANCH: #provide your github default branch
+          GITHUB_ADMIN_NAME: #provide your github admin name 
       Events:
         NewRepoBranchProtection:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api

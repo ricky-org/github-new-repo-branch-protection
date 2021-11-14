@@ -6,6 +6,7 @@ from github import GithubException
 g = Github(os.environ["GITHUB_TOKEN"])
 org = os.environ["GITHUB_ORG"]
 default_branch = os.environ["GITHUB_DEFAULT_BRANCH"]
+admin = os.environ["GITHUB_ADMIN_NAME"]
 
 def lambda_handler(event, context):
     """Sample pure Lambda function
@@ -45,6 +46,8 @@ def lambda_handler(event, context):
 
             # verify master branch protection
             if repo.get_branch(default_branch).protected:
+                issue = repo.create_issue(title="Master branch is now protected", body=f"Master branch is now protected by branch protection rule. Please contact @{admin} for more detail")
+                issue.edit(state='closed')
                 response = {
                     "statusCode": 200,
                     "body": json.dumps({

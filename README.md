@@ -36,9 +36,10 @@ To build and deploy your application for the first time,
 ```yaml
       Environment:
         Variables:
-          GITHUB_TOKEN: <your_github_token>
-          GITHUB_ORG: <your_github_org>
-          GITHUB_DEFAULT_BRANCH: <your_github_default_branch>
+          GITHUB_TOKEN: <your github token>
+          GITHUB_ORG: <your github org>
+          GITHUB_DEFAULT_BRANCH: <your github default branch>
+          GITHUB_ADMIN_NAME: <your github admin name>
 ```
 
 2. then run the following in your shell:
@@ -90,13 +91,6 @@ Run functions locally and invoke them with the `sam local invoke` command.
 
 ```bash
 github-new-repo-branch-protection$ sam local invoke NewRepoBranchProtectionLambda --event events/event.json --env-vars env.json
-```
-
-The SAM CLI can also emulate your application's API. Use the `sam local start-api` to run the API locally on port 3000.
-
-```bash
-github-new-repo-branch-protection$ sam local start-api
-github-new-repo-branch-protection$ curl http://localhost:3000/
 ```
 
 The SAM CLI reads the application template to determine the API's routes and the functions that they invoke. The `Events` property on each function's definition includes the route and method for each path.
